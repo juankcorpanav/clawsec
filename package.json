@@ -1,49 +1,79 @@
 {
-  "name": "ClawSec",
-  "private": true,
-  "license": "AGPL-3.0-or-later",
-  "version": "0.0.0",
-  "type": "module",
+  "name": "clawsec",
+  "version": "1.0.0",
+  "description": "A security-focused prompt injection detection and prevention library for LLM applications",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
-    "gen:wiki-llms": "node scripts/generate-wiki-llms.mjs",
-    "populate-local-wiki": "./scripts/populate-local-wiki.sh",
-    "predev": "npm run gen:wiki-llms",
-    "dev": "vite",
-    "prebuild": "npm run gen:wiki-llms",
-    "i18n:qa": "python scripts/i18n/qa_check.py",
-    "i18n:bootstrap:ko": "python scripts/i18n/bootstrap_language_from_en.py --lang ko",
-    "i18n:bootstrap:fr": "python scripts/i18n/bootstrap_language_from_en.py --lang fr",
-    "i18n:bootstrap:de": "python scripts/i18n/bootstrap_language_from_en.py --lang de",
-    "i18n:bootstrap:ja": "python scripts/i18n/bootstrap_language_from_en.py --lang ja",
-    "build": "vite build",
-    "preview": "vite preview"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/ --ext .js,.ts",
+    "lint:fix": "eslint src/ --ext .js,.ts --fix",
+    "build": "tsc",
+    "audit": "npm audit --audit-level=moderate",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "security",
+    "prompt-injection",
+    "llm",
+    "ai-security",
+    "prompt-security",
+    "guardrails",
+    "nlp"
+  ],
+  "author": "clawsec contributors",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clawsec/clawsec.git"
+  },
+  "bugs": {
+    "url": "https://github.com/clawsec/clawsec/issues"
+  },
+  "homepage": "https://github.com/clawsec/clawsec#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   },
   "dependencies": {
-    "lucide-react": "^0.575.0",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.5",
-    "react-markdown": "^10.1.0",
-    "react-router-dom": "^7.13.1",
-    "remark-gfm": "^4.0.1"
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "joi": "^17.11.0",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
-    "@eslint/js": "~9.39.4",
-    "@types/node": "^25.4.0",
-    "@typescript-eslint/eslint-plugin": "^8.55.0",
-    "@typescript-eslint/parser": "^8.58.1",
-    "@vitejs/plugin-react": "^5.1.4",
-    "eslint": "^9.39.4",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "fast-check": "^4.7.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.3.2"
+    "@types/express": "^4.17.21",
+    "@types/jest": "^29.5.8",
+    "@types/node": "^20.9.0",
+    "eslint": "^8.53.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-security": "^1.7.1",
+    "husky": "^8.0.3",
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3",
+    "typescript": "^5.2.2"
   },
-  "overrides": {
-    "ajv": "6.14.0",
-    "balanced-match": "4.0.3",
-    "brace-expansion": "5.0.5",
-    "minimatch": "10.2.4",
-    "picomatch": "4.0.4"
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.test.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    }
   }
 }
